@@ -7,12 +7,12 @@ import api from "./routers/api";
 import solid from "./routers/solid";
 import { SolidConnection } from "./SOLID/API";
 import { SessionStorage } from "./SOLID/SessionStorage";
-const mongoose =  require('mongoose');
+const mongoose = require('mongoose');
 import { Application } from "express";
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
-const port: number = (process.env.PORT!==undefined? +process.env.PORT : 5000) || 5000;
+const port: number = (process.env.PORT !== undefined ? +process.env.PORT : 5000) || 5000;
 
 declare module 'express-session' {
 	interface SessionData {
@@ -25,10 +25,10 @@ async function connect() {
 	console.log(process.env);
 	const app = express();
 	app.set("trust proxy", 1);
-	app.use(cors({
-		credentials: true,
-		origin: "https://dedeen3b-test2.herokuapp.com",
-	}));
+	app.use(cors({ 
+		credentials: true, 
+		origin: "http://localhost:3000", 
+	})); 
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
@@ -71,14 +71,14 @@ function restapi(app: Application) {
 	var mongoUrl = process.env.DEDE || process.env.DEDE_HEROKU;
 	//Creation of the connection for the database. Pretty simple like any other db.
 	mongoose
-		.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+		.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 		.then(() => {
 
 			app.use("/api", api);
 		});
 
 	const db = mongoose.connection;
-	db.on("error",console.error.bind(db,"Error on connection: "));
+	db.on("error", console.error.bind(db, "Error on connection: "));
 };
 
 function solidapi(app: Application) {
@@ -86,4 +86,4 @@ function solidapi(app: Application) {
 }
 
 //Timeout to allow the database to finish building.
-setTimeout(connect,1000);
+setTimeout(connect, 1000);
