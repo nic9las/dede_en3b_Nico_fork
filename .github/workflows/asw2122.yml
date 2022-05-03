@@ -52,7 +52,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "dedeen3b"
+          heroku_app_name: "dede-en3b-test-2"
           heroku_email: ${{secrets.HEROKU_USER}}
           usedocker: true
           dontuseforce : 1
