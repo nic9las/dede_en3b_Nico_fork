@@ -12,7 +12,7 @@ const solid: Router = express.Router();
  * TODO: Deshardcodear esto.
  */
 //const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
-const apiEndPoint = "https://dedeen3b-restapi-test2.herokuapp.com/solid";
+const apiEndPoint = "https://dede-en3b-restapi-test2.herokuapp.com/solid";
 
 solid.get("/login", async (req: Request, res: Response) => {
 	console.log(apiEndPoint, process.env.SOLIDAPI_URI);
@@ -77,7 +77,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 	console.log("http://localhost:3000");
 	//res.redirect(process.env.APPLICATION_URI || "http://localhost:3000");
-	res.redirect(process.env.APPLICATION_URI || "https://dedeen3b-test2.herokuapp.com");
+	res.redirect(process.env.APPLICATION_URI || "https://dede-en3b-test-2.herokuapp.com");
 });
 
 solid.get("/address", async (req: Request, res: Response)
