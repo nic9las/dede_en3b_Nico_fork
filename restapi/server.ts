@@ -1,11 +1,12 @@
 const express = require('express');
+const session = require('cookie-session');
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
 import api from "./routers/api";
 import solid from "./routers/solid";
-import ensurer from "./routers/solidEnsurer";
 import { SolidConnection } from "./SOLID/API";
+import { SessionStorage } from "./SOLID/SessionStorage";
 const mongoose =  require('mongoose');
 import { Application } from "express";
 require('dotenv').config();
@@ -15,26 +16,40 @@ const port: number = (process.env.PORT!==undefined? +process.env.PORT : 5000) ||
 
 declare module 'express-session' {
 	interface SessionData {
-		connection?: SolidConnection;
+		webId?: URL;
 	}
 }
 
 async function connect() {
+	console.log(process.env.SOLIDAPI_URI);
+	console.log(process.env);
 	const app = express();
-	
+	app.set("trust proxy", 1);
+	app.use(cors({
+		credentials: true,
+		origin: "https://dedeen3b.herokuapp.com",
+	}));
+	app.use(session({
+		secret: "mysecret420",
+		resave: false,
+		saveUninitialized: true,
+		cookie: {
+			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
+			secure: true,
+			sameSite: "Lax",
+			maxAge: 30 * 60 * 1000
+		},
+	}));
 
 	const options = {
-		origin: ["http://localhost:3000"],
 	};
 
-	console.log("Application started: " + options.origin);
+	console.log("Application started: " + port);
 
 	const metricsMiddleware = promBundle({
 		includeMethod: true,
 	});
 	app.use(metricsMiddleware);
-
-	app.use(cors());
 	app.use(bp.json());
 
 	await restapi(app);
@@ -67,7 +82,6 @@ function restapi(app: Application) {
 };
 
 function solidapi(app: Application) {
-	app.use("/solid/", ensurer);
 	app.use("/solid", solid);
 }
 

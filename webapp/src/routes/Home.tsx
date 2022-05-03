@@ -91,18 +91,22 @@ export default function Home() {
         <Grid container
             justifyContent="center"
             alignItems="center"
-            spacing={10}>
-                <Grid item xs>
+            sx={{ 
+              bgcolor: "background.default",
+              height:"93vh"
+            }}>
+                <Grid item xs wrap="wrap">
                     <Typography 
                         variant="h1"
                         align="center"
-                        color="text.primary">
+                        sx={{color:"text.primary", typography: { md: 'h1', xs: 'h2' }}}
+                        >
                             Welcome to DeDe
                     </Typography>
                     <Typography 
                         variant="h5"
                         align="center"
-                        color="text.primary"
+                        sx={{color:"text.secondary",  typography: { md: 'h5', xs: 'h6' }}}
                         paragraph 
                         style={{ wordWrap: "break-word" }}
                         >
