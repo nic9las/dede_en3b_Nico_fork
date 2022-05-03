@@ -5,7 +5,6 @@ on:
     branches: [ master ]
 
 jobs:
-    - uses: codecov/codecov-action@v2
   #e2e-tests: 👀👀👀
     #needs: [unit-test-webapp, unit-test-restapi]
     #runs-on: ubuntu-latest
