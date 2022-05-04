@@ -28,10 +28,10 @@ async function connect() {
 	console.log(process.env);
 	const app = express();
 	app.set("trust proxy", 1);
-	app.use(cors({
-		credentials: true,
-		origin: frontend,
-	}));
+	app.use(cors({ 
+		credentials: true, 
+		origin: frontend", 
+	})); 
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
